@@ -1,5 +1,10 @@
 package io.github.fabricators_of_create.porting_lib.mixin.common;
 
+import io.github.fabricators_of_create.porting_lib.util.PortingHooks;
+import io.github.fabricators_of_create.porting_lib.util.client.ClientHooks;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -10,6 +15,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 
+@Deprecated(forRemoval = true)
 @Mixin(Fluid.class)
 public abstract class FluidMixin implements FluidExtensions, RegistryNameProvider {
 	@Unique
@@ -29,8 +35,10 @@ public abstract class FluidMixin implements FluidExtensions, RegistryNameProvide
 	@Unique
 	@Override
 	public final FluidAttributes getAttributes() {
-		if (port_lib$fluidAttributes == null)
+		if (port_lib$fluidAttributes == null) {
 			port_lib$fluidAttributes = createAttributes();
+		}
+
 		return port_lib$fluidAttributes;
 	}
 }
